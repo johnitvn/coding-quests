@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DiscoverBlock from './DiscoverBlock/components/DiscoverBlock';
 import '../styles/_discover.scss';
+import { redirectToAuthCodeFlow as redirectToAuth, getAccessToken, fetchRequest } from "../../../services/SpotifyService";
 
 export default class Discover extends Component {
   constructor() {
@@ -11,6 +12,37 @@ export default class Discover extends Component {
       playlists: [],
       categories: []
     };
+  }
+
+  async componentDidMount() {
+    // TODO optimize this for store token in to local storage
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    if (code) {
+      const accessToken = await getAccessToken(code);
+      this.fetch(accessToken);
+    } else {
+      redirectToAuth();
+    }
+  }
+
+  fetch(accessToken) {
+    fetchRequest(accessToken, "/browse/new-releases").then(({ albums }) => {
+      this.setState({
+        newReleases: albums.items
+      })
+    });
+    fetchRequest(accessToken, "/browse/categories").then(({ categories }) => {
+      this.setState({
+        categories: categories.items
+      })
+    });
+    fetchRequest(accessToken, "/browse/featured-playlists").then(({ playlists }) => {
+      this.setState({
+        playlists: playlists.items
+      })
+    });
+
   }
 
   render() {

@@ -1,8 +1,10 @@
 export default {
   api: {
+    callbackUrl: 'http://localhost:3000',
     baseUrl: 'https://api.spotify.com/v1',
-    authUrl: 'https://accounts.spotify.com/api/token',
+    authUrl: 'https://accounts.spotify.com/authorize',
+    accountUrl: 'https://accounts.spotify.com/api/token',
     clientId: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
-    clientSecret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET
+    clientSecret: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET,
   }
 }
