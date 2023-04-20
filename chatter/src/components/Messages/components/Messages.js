@@ -77,6 +77,7 @@ function Messages() {
         {messageList.map(message => (
           <Message message={message} nextMessage={message} botTyping={botTyping} />
         ))}
+        {botTyping && <TypingMessage />}
       </div>
       <Footer message={currentMessage} sendMessage={sendMessage} onChangeMessage={changeMessage} />
     </div>
