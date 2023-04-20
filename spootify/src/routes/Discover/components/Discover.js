@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DiscoverBlock from './DiscoverBlock/components/DiscoverBlock';
 import '../styles/_discover.scss';
-import { redirectToAuthCodeFlow as redirectToAuth, getAccessToken, fetchRequest } from "../../../services/SpotifyService";
+import { redirectToOAuth, getAccessToken, fetchRequest } from "../../../services/SpotifyService";
 
 export default class Discover extends Component {
   constructor() {
@@ -22,7 +22,7 @@ export default class Discover extends Component {
       const accessToken = await getAccessToken(code);
       this.fetch(accessToken);
     } else {
-      redirectToAuth();
+      redirectToOAuth();
     }
   }
 
