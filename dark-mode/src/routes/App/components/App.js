@@ -22,9 +22,8 @@ function App() {
 
         {/* --The button that should toggle dark mode-- */}
         <button className="app__dark-mode-btn icon level-right" onClick={() => setIsDarkMode(!isDarkMode)}>
-          <FontAwesomeIcon icon={faMoon} />
+          <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} style={isDarkMode ? { color: '#FFA500' } : {}} />
         </button>
-
       </div>
 
       <div className="columns">
