@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import '../styles/_rocket.scss';
 
 const SECONDS_TO_TAKEOFF = 5;
@@ -14,36 +14,27 @@ function timeToPositionPercent(startTime) {
   return `calc(300px + ${((timeDiff / MS_TO_TAKEOFF) * 100).toFixed(0)}%)`;
 }
 
-function generateEmptyListEls(id, quantity) {
-  return [...Array(quantity)].map((_v, index) => <li key={`${id}-${index}`} />);
+function generateEmptyListEls(quantity) {
+  return [...Array(quantity)].map(() => <li />);
 }
 
 export default function RocketCore({ initialLaunchTime }) {
-  console.log("Rocket Core Rendering")
-  const rocketRef = useRef(false);
-  useEffect(() => {
-    setInterval(() => {
-      if (rocketRef.current)
-        rocketRef.current.style.bottom = timeToPositionPercent(initialLaunchTime);
-    }, 500)
-  }, [initialLaunchTime])
-
   return (
     <>
-      <div className="rocket" ref={rocketRef}>
+      <div className="rocket" style={{ bottom: timeToPositionPercent(initialLaunchTime) }}>
         <div className="rocket__body">
-          <div className="rocket__body__main" />
-          <div className="rocket__body__fin rocket__body__fin__left" />
-          <div className="rocket__body__fin rocket__body__fin__right" />
-          <div className="rocket__body__window" />
+          <div className="rocket__body__main"/>
+          <div className="rocket__body__fin rocket__body__fin__left"/>
+          <div className="rocket__body__fin rocket__body__fin__right"/>
+          <div className="rocket__body__window"/>
         </div>
-        <div className="rocket__exhaust__flame" />
+        <div className="rocket__exhaust__flame"/>
         <ul className="rocket__exhaust__fumes">
-          {generateEmptyListEls(1, 9)}
+          {generateEmptyListEls(9)}
         </ul>
       </div>
       <ul className="stars">
-        {generateEmptyListEls(2, 7)}
+        {generateEmptyListEls(7)}
       </ul>
     </>
   );
