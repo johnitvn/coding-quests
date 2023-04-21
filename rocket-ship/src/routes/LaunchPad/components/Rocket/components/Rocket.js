@@ -1,14 +1,29 @@
 import React, { Component } from 'react';
 import RocketCore from './RocketCore';
+import _ from 'lodash';
 
-export function FunctionalRocket() {
+export const FunctionalRocket = React.memo(() => {
   console.log("Functional Rocket Rendering");
-  return <RocketCore id="functional-rocket" initialLaunchTime={Date.now()} />;
-}
+  return <RocketCore initialLaunchTime={Date.now()} />;
+});
 
 export class ClassRocket extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      initialLaunchTime: Date.now()
+    };
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return !_.isEqual(nextProps, this.props);
+  }
+
   render() {
     console.log("Class Rocket Rendering");
-    return <RocketCore id="class-rocket" initialLaunchTime={Date.now()} />;
+    const { initialLaunchTime } = this.state;
+    return <RocketCore initialLaunchTime={initialLaunchTime} />;
   }
+
 }
